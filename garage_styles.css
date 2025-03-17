@@ -1,0 +1,123 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+/* Form Container */
+.container {
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields & Buttons */
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Vehicle List */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background: #ddd;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    transition: 0.3s;
+}
+
+li:hover {
+    background: #ccc;
+}
+
+/* Vehicle Name Clickable */
+.vehicle-name {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.vehicle-name:hover {
+    text-decoration: underline;
+}
+
+/* Vehicle Details */
+.vehicle-details {
+    display: none;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+}
+
+.vehicle-details p {
+    margin: 5px 0;
+}
+
+/* History Section */
+.history {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-left: 4px solid #007bff;
+    border-radius: 5px;
+}
+
+.history ul {
+    padding-left: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.history ul li {
+    background: none;
+    padding: 2px;
+    margin: 2px 0;
+}
+
+/* Edit Button */
+.vehicle-details button {
+    background-color: #ffc107;
+    color: black;
+    margin-top: 10px;
+}
+
+.vehicle-details button:hover {
+    background-color: #e0a800;
+}
