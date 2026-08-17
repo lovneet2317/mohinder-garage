@@ -1,6 +1,6 @@
 /* =========================================================
    MOHINDER'S GARAGE
-   Vehicle Management System
+   VEHICLE MANAGEMENT SYSTEM
    ========================================================= */
 
 
@@ -10,7 +10,7 @@ let vehicles =
     JSON.parse(localStorage.getItem("vehicles")) || [];
 
 
-/* ================= DOM ELEMENTS ================= */
+/* ================= ELEMENTS ================= */
 
 const vehicleForm =
     document.getElementById("vehicleForm");
@@ -25,7 +25,7 @@ const emptyMessage =
     document.getElementById("emptyMessage");
 
 
-/* ================= SAVE DATA ================= */
+/* ================= SAVE ================= */
 
 function saveData() {
 
@@ -39,130 +39,182 @@ function saveData() {
 
 /* ================= ADD VEHICLE ================= */
 
-vehicleForm.addEventListener("submit", function (event) {
+vehicleForm.addEventListener(
+    "submit",
+    function (event) {
 
-    event.preventDefault();
-
-
-    const vehicleName =
-        document.getElementById("vehicleInput").value.trim();
-
-    const lastService =
-        document.getElementById("lastService").value;
-
-    const kmDriven =
-        document.getElementById("kmDriven").value;
-
-    const partsInstalled =
-        document.getElementById("partsInstalled").value.trim();
-
-    const serviceCost =
-        document.getElementById("serviceCost").value;
-
-    const status =
-        document.getElementById("vehicleStatus").value;
+        event.preventDefault();
 
 
-    if (!vehicleName) {
+        const name =
+            document
+                .getElementById("vehicleInput")
+                .value
+                .trim();
 
-        alert("Please enter the vehicle name.");
 
-        return;
+        const lastService =
+            document
+                .getElementById("lastService")
+                .value;
+
+
+        const kmDriven =
+            document
+                .getElementById("kmDriven")
+                .value;
+
+
+        const parts =
+            document
+                .getElementById("partsInstalled")
+                .value
+                .trim();
+
+
+        const cost =
+            document
+                .getElementById("serviceCost")
+                .value;
+
+
+        const status =
+            document
+                .getElementById("vehicleStatus")
+                .value;
+
+
+        if (!name) {
+
+            alert(
+                "Please enter the vehicle name."
+            );
+
+            return;
+
+        }
+
+
+        const vehicle = {
+
+            id: Date.now(),
+
+            name: name,
+
+            lastService:
+                lastService ||
+                "Not available",
+
+            kmDriven:
+                kmDriven || "0",
+
+            partsInstalled:
+                parts ||
+                "No parts recorded",
+
+            serviceCost:
+                Number(cost) || 0,
+
+            status: status,
+
+            history: [
+
+                {
+
+                    date:
+                        new Date()
+                            .toLocaleString(),
+
+                    action:
+                        "Vehicle added",
+
+                    cost:
+                        Number(cost) || 0
+
+                }
+
+            ]
+
+        };
+
+
+        vehicles.push(vehicle);
+
+
+        saveData();
+
+        displayVehicles();
+
+        updateDashboard();
+
+
+        vehicleForm.reset();
+
+
+        /*
+            Scroll to vehicle section
+            after adding a vehicle.
+        */
+
+        document
+            .getElementById("vehicles")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
 
     }
+);
 
 
-    const vehicle = {
+/* ================= DISPLAY ================= */
 
-        id: Date.now(),
-
-        name: vehicleName,
-
-        lastService: lastService || "Not available",
-
-        kmDriven: kmDriven || "0",
-
-        partsInstalled:
-            partsInstalled || "No parts recorded",
-
-        serviceCost:
-            Number(serviceCost) || 0,
-
-        status: status,
-
-        history: [
-
-            {
-                date: new Date().toLocaleString(),
-
-                action: "Vehicle added",
-
-                cost: Number(serviceCost) || 0
-
-            }
-
-        ]
-
-    };
-
-
-    vehicles.push(vehicle);
-
-
-    saveData();
-
-    displayVehicles();
-
-    updateDashboard();
-
-
-    vehicleForm.reset();
-
-});
-
-
-/* ================= DISPLAY VEHICLES ================= */
-
-function displayVehicles(searchTerm = "") {
+function displayVehicles(
+    searchTerm = ""
+) {
 
     vehicleList.innerHTML = "";
 
 
-    const filteredVehicles =
+    const search =
+        searchTerm
+            .toLowerCase()
+            .trim();
+
+
+    const filtered =
         vehicles.filter(vehicle => {
 
-            const search =
-                searchTerm.toLowerCase();
-
-            return (
-
-                vehicle.name
-                    .toLowerCase()
-                    .includes(search)
-
-            );
+            return vehicle.name
+                .toLowerCase()
+                .includes(search);
 
         });
 
 
-    if (filteredVehicles.length === 0) {
+    if (filtered.length === 0) {
 
-        emptyMessage.style.display = "block";
+        emptyMessage.style.display =
+            "block";
 
         return;
 
     }
 
 
-    emptyMessage.style.display = "none";
+    emptyMessage.style.display =
+        "none";
 
 
-    filteredVehicles.forEach(vehicle => {
+    filtered.forEach(vehicle => {
 
         const card =
-            document.createElement("article");
+            document.createElement(
+                "article"
+            );
 
-        card.className = "vehicle-card";
+
+        card.className =
+            "vehicle-card";
 
 
         card.innerHTML = `
@@ -204,10 +256,14 @@ function displayVehicles(searchTerm = "") {
 
                 <div>
 
-                    <span>KM Driven</span>
+                    <span>
+                        KM Driven
+                    </span>
 
                     <strong>
-                        ${Number(vehicle.kmDriven).toLocaleString()}
+                        ${Number(
+                            vehicle.kmDriven
+                        ).toLocaleString()}
                         km
                     </strong>
 
@@ -216,10 +272,14 @@ function displayVehicles(searchTerm = "") {
 
                 <div>
 
-                    <span>Parts / Work</span>
+                    <span>
+                        Parts / Work
+                    </span>
 
                     <strong>
-                        ${escapeHTML(vehicle.partsInstalled)}
+                        ${escapeHTML(
+                            vehicle.partsInstalled
+                        )}
                     </strong>
 
                 </div>
@@ -227,10 +287,14 @@ function displayVehicles(searchTerm = "") {
 
                 <div>
 
-                    <span>Service Cost</span>
+                    <span>
+                        Service Cost
+                    </span>
 
                     <strong>
-                        ₹${Number(vehicle.serviceCost).toLocaleString()}
+                        ₹${Number(
+                            vehicle.serviceCost
+                        ).toLocaleString()}
                     </strong>
 
                 </div>
@@ -272,7 +336,9 @@ function displayVehicles(searchTerm = "") {
                 style="display:none"
             >
 
-                <h4>Service History</h4>
+                <h4>
+                    Service History
+                </h4>
 
                 ${renderHistory(vehicle)}
 
@@ -288,12 +354,14 @@ function displayVehicles(searchTerm = "") {
 }
 
 
-/* ================= SERVICE HISTORY ================= */
+/* ================= HISTORY ================= */
 
 function renderHistory(vehicle) {
 
-    if (!vehicle.history ||
-        vehicle.history.length === 0) {
+    if (
+        !vehicle.history ||
+        vehicle.history.length === 0
+    ) {
 
         return `
             <p class="no-history">
@@ -307,30 +375,39 @@ function renderHistory(vehicle) {
     return vehicle.history
         .slice()
         .reverse()
-        .map(entry => `
+        .map(entry => {
 
-            <div class="history-item">
+            return `
 
-                <div>
+                <div class="history-item">
 
-                    <strong>
-                        ${escapeHTML(entry.action)}
-                    </strong>
+                    <div>
 
-                    <small>
-                        ${escapeHTML(entry.date)}
-                    </small>
+                        <strong>
+                            ${escapeHTML(
+                                entry.action
+                            )}
+                        </strong>
+
+                        <small>
+                            ${escapeHTML(
+                                entry.date
+                            )}
+                        </small>
+
+                    </div>
+
+                    <span>
+                        ₹${Number(
+                            entry.cost || 0
+                        ).toLocaleString()}
+                    </span>
 
                 </div>
 
+            `;
 
-                <span>
-                    ₹${Number(entry.cost || 0).toLocaleString()}
-                </span>
-
-            </div>
-
-        `)
+        })
         .join("");
 
 }
@@ -341,28 +418,37 @@ function renderHistory(vehicle) {
 function toggleHistory(id) {
 
     const history =
-        document.getElementById(`history-${id}`);
+        document.getElementById(
+            `history-${id}`
+        );
 
 
-    if (history.style.display === "none") {
+    if (
+        history.style.display ===
+        "none"
+    ) {
 
-        history.style.display = "block";
+        history.style.display =
+            "block";
 
     } else {
 
-        history.style.display = "none";
+        history.style.display =
+            "none";
 
     }
 
 }
 
 
-/* ================= EDIT VEHICLE ================= */
+/* ================= EDIT ================= */
 
 function editVehicle(id) {
 
     const vehicle =
-        vehicles.find(v => v.id === id);
+        vehicles.find(
+            item => item.id === id
+        );
 
 
     if (!vehicle) return;
@@ -406,71 +492,90 @@ function editVehicle(id) {
         );
 
 
-    /* Save previous data to history */
-
     vehicle.history.push({
 
-        date: new Date().toLocaleString(),
+        date:
+            new Date()
+                .toLocaleString(),
 
-        action: "Vehicle information updated",
+        action:
+            "Vehicle information updated",
 
-        cost: Number(vehicle.serviceCost) || 0
+        cost:
+            Number(vehicle.serviceCost) || 0
 
     });
 
 
     vehicle.name =
-        newName.trim() || vehicle.name;
+        newName.trim() ||
+        vehicle.name;
+
 
     vehicle.lastService =
-        newService || vehicle.lastService;
+        newService ||
+        vehicle.lastService;
+
 
     vehicle.kmDriven =
-        newKm || vehicle.kmDriven;
+        newKm ||
+        vehicle.kmDriven;
+
 
     vehicle.partsInstalled =
-        newParts || vehicle.partsInstalled;
+        newParts ||
+        vehicle.partsInstalled;
+
 
     vehicle.serviceCost =
-        Number(newCost) || vehicle.serviceCost;
+        Number(newCost) ||
+        vehicle.serviceCost;
 
 
     saveData();
 
-    displayVehicles(searchInput.value);
+    displayVehicles(
+        searchInput.value
+    );
 
     updateDashboard();
 
 }
 
 
-/* ================= DELETE VEHICLE ================= */
+/* ================= DELETE ================= */
 
 function deleteVehicle(id) {
 
     const vehicle =
-        vehicles.find(v => v.id === id);
+        vehicles.find(
+            item => item.id === id
+        );
 
 
     if (!vehicle) return;
 
 
-    const confirmed =
+    const confirmation =
         confirm(
             `Delete ${vehicle.name} from the garage?`
         );
 
 
-    if (!confirmed) return;
+    if (!confirmation) return;
 
 
     vehicles =
-        vehicles.filter(v => v.id !== id);
+        vehicles.filter(
+            item => item.id !== id
+        );
 
 
     saveData();
 
-    displayVehicles(searchInput.value);
+    displayVehicles(
+        searchInput.value
+    );
 
     updateDashboard();
 
@@ -501,16 +606,29 @@ function updateDashboard() {
 
     const totalServices =
         vehicles.reduce(
-            (total, vehicle) =>
-                total + (vehicle.history?.length || 0),
+            (total, vehicle) => {
+
+                return total +
+                    (
+                        vehicle.history
+                            ?.length || 0
+                    );
+
+            },
             0
         );
 
 
     const totalCost =
         vehicles.reduce(
-            (total, vehicle) =>
-                total + Number(vehicle.serviceCost || 0),
+            (total, vehicle) => {
+
+                return total +
+                    Number(
+                        vehicle.serviceCost || 0
+                    );
+
+            },
             0
         );
 
@@ -539,43 +657,52 @@ function updateDashboard() {
 
 function getStatusClass(status) {
 
-    if (status === "Completed") {
+    switch (status) {
 
-        return "completed";
+        case "Completed":
+            return "completed";
+
+        case "In Service":
+            return "in-service";
+
+        default:
+            return "pending";
 
     }
-
-    if (status === "In Service") {
-
-        return "in-service";
-
-    }
-
-    return "pending";
 
 }
 
 
-/* ================= SECURITY ================= */
-
-/*
-   Prevent HTML entered by a user from being
-   interpreted as actual HTML.
-*/
+/* ================= HTML SECURITY ================= */
 
 function escapeHTML(value) {
 
     return String(value)
 
-        .replace(/&/g, "&amp;")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        .replace(/</g, "&lt;")
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-        .replace(/>/g, "&gt;")
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-        .replace(/"/g, "&quot;")
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        .replace(/'/g, "&#039;");
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
