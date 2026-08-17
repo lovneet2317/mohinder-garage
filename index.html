@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,16 +11,47 @@
 
 <body>
 
-    <!-- ================= HEADER ================= -->
+    <!-- ================= NAVBAR ================= -->
 
-    <header class="header">
+    <nav class="navbar">
 
-        <div>
-            <p class="brand-small">VEHICLE MANAGEMENT SYSTEM</p>
-            <h1>🚗 Mohinder's Garage</h1>
-            <p class="subtitle">
-                Manage vehicles, services and maintenance history
+        <div class="logo">
+            <span class="logo-icon">🚗</span>
+            <span>MOHINDER'S GARAGE</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#vehicles">Vehicles</a>
+            <a href="#addVehicle">Add Vehicle</a>
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-tag">
+                VEHICLE MANAGEMENT SYSTEM
+            </span>
+
+            <h1>
+                MOHINDER'S
+                <span>GARAGE</span>
+            </h1>
+
+            <p>
+                Smart vehicle maintenance and service management
             </p>
+
+            <a href="#addVehicle" class="hero-button">
+                + Add Vehicle
+            </a>
+
         </div>
 
     </header>
@@ -29,37 +59,51 @@
 
     <!-- ================= DASHBOARD ================= -->
 
-    <main class="dashboard">
+    <main id="dashboard" class="dashboard">
+
+        <!-- Statistics -->
 
         <section class="stats">
 
             <div class="stat-card">
-                <span class="stat-icon">🚘</span>
+
+                <div class="stat-icon orange">
+                    🚘
+                </div>
 
                 <div>
-                    <p>Total Vehicles</p>
+                    <span>Total Vehicles</span>
                     <h2 id="totalVehicles">0</h2>
                 </div>
+
             </div>
 
 
             <div class="stat-card">
-                <span class="stat-icon">🔧</span>
+
+                <div class="stat-icon blue">
+                    🔧
+                </div>
 
                 <div>
-                    <p>Total Services</p>
+                    <span>Total Services</span>
                     <h2 id="totalServices">0</h2>
                 </div>
+
             </div>
 
 
             <div class="stat-card">
-                <span class="stat-icon">💰</span>
+
+                <div class="stat-icon green">
+                    ₹
+                </div>
 
                 <div>
-                    <p>Total Spent</p>
+                    <span>Total Spent</span>
                     <h2 id="totalCost">₹0</h2>
                 </div>
+
             </div>
 
         </section>
@@ -67,13 +111,20 @@
 
         <!-- ================= ADD VEHICLE ================= -->
 
-        <section class="panel">
+        <section id="addVehicle" class="panel">
 
-            <div class="panel-header">
+            <div class="panel-title">
 
                 <div>
-                    <span class="section-label">GARAGE</span>
+                    <span class="section-label">
+                        GARAGE MANAGEMENT
+                    </span>
+
                     <h2>Add New Vehicle</h2>
+
+                    <p>
+                        Register a vehicle and record its latest service information.
+                    </p>
                 </div>
 
             </div>
@@ -84,6 +135,7 @@
                 <div class="form-grid">
 
                     <div class="input-group">
+
                         <label for="vehicleInput">
                             Vehicle Name
                         </label>
@@ -94,10 +146,12 @@
                             placeholder="e.g. Toyota Fortuner"
                             required
                         >
+
                     </div>
 
 
                     <div class="input-group">
+
                         <label for="lastService">
                             Last Service Date
                         </label>
@@ -106,10 +160,12 @@
                             type="date"
                             id="lastService"
                         >
+
                     </div>
 
 
                     <div class="input-group">
+
                         <label for="kmDriven">
                             Kilometers Driven
                         </label>
@@ -120,10 +176,12 @@
                             placeholder="e.g. 45000"
                             min="0"
                         >
+
                     </div>
 
 
                     <div class="input-group">
+
                         <label for="partsInstalled">
                             Parts / Work Done
                         </label>
@@ -133,24 +191,34 @@
                             id="partsInstalled"
                             placeholder="e.g. Oil filter, brake pads"
                         >
+
                     </div>
 
 
                     <div class="input-group">
+
                         <label for="serviceCost">
                             Service Cost
                         </label>
 
-                        <input
-                            type="number"
-                            id="serviceCost"
-                            placeholder="₹ Service cost"
-                            min="0"
-                        >
+                        <div class="currency-input">
+
+                            <span>₹</span>
+
+                            <input
+                                type="number"
+                                id="serviceCost"
+                                placeholder="0"
+                                min="0"
+                            >
+
+                        </div>
+
                     </div>
 
 
                     <div class="input-group">
+
                         <label for="vehicleStatus">
                             Service Status
                         </label>
@@ -170,12 +238,16 @@
                             </option>
 
                         </select>
+
                     </div>
 
                 </div>
 
 
-                <button type="submit" class="primary-btn">
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
                     + Add Vehicle
                 </button>
 
@@ -184,21 +256,26 @@
         </section>
 
 
-        <!-- ================= VEHICLE LIST ================= -->
+        <!-- ================= VEHICLES ================= -->
 
-        <section class="panel">
+        <section id="vehicles" class="panel">
 
-            <div class="vehicle-header">
+            <div class="vehicle-heading">
 
                 <div>
-                    <span class="section-label">GARAGE RECORDS</span>
+
+                    <span class="section-label">
+                        GARAGE RECORDS
+                    </span>
+
                     <h2>Your Vehicles</h2>
+
                 </div>
 
 
-                <div class="search-box">
+                <div class="search-container">
 
-                    🔍
+                    <span>⌕</span>
 
                     <input
                         type="text"
@@ -211,20 +288,29 @@
             </div>
 
 
-            <div id="vehicleList" class="vehicle-list"></div>
+            <div
+                id="vehicleList"
+                class="vehicle-list"
+            ></div>
 
 
             <div
                 id="emptyMessage"
-                class="empty-message"
+                class="empty-state"
             >
-                🚘
-                <h3>No vehicles found</h3>
+
+                <div class="empty-icon">
+                    🚘
+                </div>
+
+                <h3>
+                    No Vehicles Found
+                </h3>
 
                 <p>
-                    Add your first vehicle to start managing
-                    your garage.
+                    Add your first vehicle to start managing your garage.
                 </p>
+
             </div>
 
         </section>
@@ -236,12 +322,16 @@
 
     <footer>
 
-        <p>
-            © 2026 Mohinder's Garage
-        </p>
+        <div class="footer-logo">
+            🚗 Mohinder's Garage
+        </div>
 
         <p>
             Vehicle Management System
+        </p>
+
+        <p>
+            © 2026 Mohinder's Garage
         </p>
 
     </footer>
@@ -250,5 +340,4 @@
     <script src="script.js"></script>
 
 </body>
-
 </html>
